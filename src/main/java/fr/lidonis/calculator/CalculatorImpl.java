@@ -12,9 +12,12 @@ public class CalculatorImpl implements Calculator {
     @Override
     public BigDecimal evaluate(String expression) {
         char[] tokens = expression.toCharArray();
+        NumberExtractor numberExtractor = new NumberExtractor(tokens);
 
         for (int i = 0; i < tokens.length; i++) {
-            i = extractNumber(tokens, i);
+            NumberExtractor.Extract extract = numberExtractor.extractNumber(i);
+            i = extract.getPosition();
+            numbers.push(extract.getNumber());
             // stop if we reach the last number
             if (i == tokens.length) break;
             applyOperator(tokens[i]);
@@ -24,20 +27,6 @@ public class CalculatorImpl implements Calculator {
             numbers.push(operators.pop().apply(numbers.pop(), numbers.pop()));
 
         return numbers.pop();
-    }
-
-    private int extractNumber(char[] tokens, int start) {
-        if (isNumberPart(tokens[start])) {
-            StringBuilder stringBuilder = new StringBuilder();
-            while (start < tokens.length && (isNumberPart(tokens[start])))
-                stringBuilder.append(tokens[start++]);
-            numbers.push(new BigDecimal(stringBuilder.toString()));
-        }
-        return start;
-    }
-
-    private static boolean isNumberPart(char token) {
-        return token >= '0' && token <= '9';
     }
 
     private void applyOperator(char token) {
