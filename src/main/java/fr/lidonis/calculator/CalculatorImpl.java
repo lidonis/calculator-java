@@ -20,8 +20,9 @@ public class CalculatorImpl implements Calculator {
             i = extract.getPosition();
             numbers.push(extract.getNumber());
             // stop if we reach the last number
-            if (i == tokens.length) break;
-            applyOperator(tokens[i]);
+            if (i != tokens.length) {
+                applyOperator(tokens[i]);
+            }
         }
 
         while (!operators.empty()) {
