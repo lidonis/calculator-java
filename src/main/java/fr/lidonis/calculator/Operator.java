@@ -10,7 +10,12 @@ public enum Operator {
     ADD('+', BigDecimal::add),
     SUBTRACT('-', (bigDecimal, bigDecimal2) -> bigDecimal2.subtract(bigDecimal)),
     MULTIPLY('*', BigDecimal::multiply),
-    DIVIDE('/', (bigDecimal, bigDecimal2) -> bigDecimal2.divide(bigDecimal, MathContext.DECIMAL128));
+    DIVIDE('/', (bigDecimal, bigDecimal2) -> {
+        if (BigDecimal.ZERO.equals(bigDecimal))
+            throw new
+                    UnsupportedOperationException("Cannot divide by zero");
+        return bigDecimal2.divide(bigDecimal, MathContext.DECIMAL128);
+    });
 
     char operator;
     private BinaryOperator<BigDecimal> operation;
@@ -22,6 +27,10 @@ public enum Operator {
 
     BigDecimal apply(BigDecimal bigDecimal1, BigDecimal bigDecimal2) {
         return operation.apply(bigDecimal1, bigDecimal2);
+    }
+
+    public boolean hasPrecedence(Operator op) {
+        return (this != Operator.MULTIPLY && this != Operator.DIVIDE) || (op != Operator.ADD && op != Operator.SUBTRACT);
     }
 
     static Optional<Operator> getOperator(char c) {

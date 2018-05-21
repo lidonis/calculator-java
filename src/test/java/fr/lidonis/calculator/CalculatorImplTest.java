@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
 
 class CalculatorImplTest {
 
@@ -56,5 +57,15 @@ class CalculatorImplTest {
         assertThat(result).isEqualTo("5");
     }
 
+    @Test
+    void given_5_divided_by_0_throw_exception_containing_divide_by_zero() {
+        Throwable throwable = catchThrowable(() -> new CalculatorImpl().evaluate("5/0"));
+        assertThat(throwable).hasMessageContaining("divide by zero");
+    }
 
+    @Test
+    void given_3_times_2_plus_1_divided_by_5_return_6_point_2() {
+        BigDecimal result = new CalculatorImpl().evaluate("3*2+1/5");
+        assertThat(result).isEqualTo("6.2");
+    }
 }

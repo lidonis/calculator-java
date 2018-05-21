@@ -43,10 +43,11 @@ public class CalculatorImpl implements Calculator {
     private void applyOperator(char token) {
         Optional<Operator> optionalOperator = Operator.getOperator(token);
         if (optionalOperator.isPresent()) {
-            while (!operators.empty())
+            Operator operator = optionalOperator.get();
+            while (!operators.empty() && operator.hasPrecedence(operators.peek()))
                 numbers.push(operators.pop().apply(numbers.pop(), numbers.pop()));
 
-            operators.push(optionalOperator.get());
+            operators.push(operator);
         }
     }
 }
