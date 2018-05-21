@@ -68,4 +68,10 @@ class CalculatorImplTest {
         BigDecimal result = new CalculatorImpl().evaluate("3*2+1/5");
         assertThat(result).isEqualTo("6.2");
     }
+
+    @Test
+    void given_5_point_2_plus_1_return_6_point_2() {
+        BigDecimal result = new CalculatorImpl().evaluate("5.2+1");
+        assertThat(result).isEqualTo("6.2");
+    }
 }

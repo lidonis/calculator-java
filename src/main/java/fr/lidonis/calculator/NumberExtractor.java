@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 
 class NumberExtractor {
 
-
     private char[] tokens;
 
     NumberExtractor(char[] tokens) {
@@ -22,7 +21,7 @@ class NumberExtractor {
     }
 
     private static boolean isNumberPart(char token) {
-        return token >= '0' && token <= '9';
+        return token >= '0' && token <= '9' || token == '.';
     }
 
     class Extract {
