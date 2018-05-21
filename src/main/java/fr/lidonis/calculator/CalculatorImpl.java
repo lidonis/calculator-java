@@ -21,19 +21,15 @@ public class CalculatorImpl implements Calculator {
             numbers.push(extract.getNumber());
             // stop if we reach the last number
             if (i != tokens.length) {
-                applyOperator(tokens[i]);
+                pushOperator(tokens[i]);
             }
         }
 
-        while (!operators.empty()) {
-            if (numbers.size() < 2) {
-                throw new IllegalArgumentException("The expression is invalid");
-            }
-            numbers.push(operators.pop().apply(numbers.pop(), numbers.pop()));
-        }
+        applyStackedOperators();
 
         return numbers.pop();
     }
+
 
     private void checkExpression(String expression) {
         if (expression == null) {
@@ -43,14 +39,27 @@ public class CalculatorImpl implements Calculator {
         }
     }
 
-    private void applyOperator(char token) {
+    private void pushOperator(char token) {
         Optional<Operator> optionalOperator = Operator.getOperator(token);
         if (optionalOperator.isPresent()) {
             Operator operator = optionalOperator.get();
-            while (!operators.empty() && operator.hasPrecedence(operators.peek()))
-                numbers.push(operators.pop().apply(numbers.pop(), numbers.pop()));
-
+            while (!operators.empty() && operator.hasPrecedence(operators.peek())) {
+                applyOperator();
+            }
             operators.push(operator);
         }
+    }
+
+    private void applyStackedOperators() {
+        while (!operators.empty()) {
+            applyOperator();
+        }
+    }
+
+    private void applyOperator() {
+        if (numbers.size() < 2) {
+            throw new IllegalArgumentException("The expression is invalid");
+        }
+        numbers.push(operators.pop().apply(numbers.pop(), numbers.pop()));
     }
 }
