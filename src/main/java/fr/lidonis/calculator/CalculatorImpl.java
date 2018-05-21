@@ -12,9 +12,22 @@ public class CalculatorImpl implements Calculator {
     @Override
     public BigDecimal evaluate(String expression) {
         checkExpression(expression);
-        parseTokens(expression.toCharArray());
+        String expressionWithoutSpace = removeSpaces(expression);
+        parseTokens(expressionWithoutSpace.toCharArray());
         applyStackedOperators();
         return numbers.pop();
+    }
+
+    private String removeSpaces(String expression) {
+        return expression.replaceAll(" ", "");
+    }
+
+    private void checkExpression(String expression) {
+        if (expression == null) {
+            throw new IllegalArgumentException("The expression should not be null");
+        } else if (expression.isEmpty()) {
+            throw new IllegalArgumentException("The expression should not be empty");
+        }
     }
 
     private void parseTokens(char[] tokens) {
@@ -27,14 +40,6 @@ public class CalculatorImpl implements Calculator {
             if (i != tokens.length) {
                 pushOperator(tokens[i]);
             }
-        }
-    }
-
-    private void checkExpression(String expression) {
-        if (expression == null) {
-            throw new IllegalArgumentException("The expression should not be null");
-        } else if (expression.isEmpty()) {
-            throw new IllegalArgumentException("The expression should not be empty");
         }
     }
 

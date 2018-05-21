@@ -101,4 +101,10 @@ class CalculatorImplTest {
         Throwable throwable = catchThrowable(() -> new CalculatorImpl().evaluate(expression));
         assertThat(throwable).hasMessageContaining("invalid");
     }
+
+    @Test
+    void given_1_plus_1_with_spaces_return_2() {
+        BigDecimal result = new CalculatorImpl().evaluate("1 + 1");
+        assertThat(result).isEqualTo(new BigDecimal(2));
+    }
 }
