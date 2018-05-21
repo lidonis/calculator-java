@@ -1,6 +1,8 @@
 package fr.lidonis.calculator;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.math.BigDecimal;
 
@@ -91,5 +93,12 @@ class CalculatorImplTest {
     void given_empty_expression_throw_exception_containing_empty() {
         Throwable throwable = catchThrowable(() -> new CalculatorImpl().evaluate(""));
         assertThat(throwable).hasMessageContaining("empty");
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"+", "a", "1+"})
+    void given_invalid_expression_throw_exception_containing_invalid(String expression) {
+        Throwable throwable = catchThrowable(() -> new CalculatorImpl().evaluate(expression));
+        assertThat(throwable).hasMessageContaining("invalid");
     }
 }

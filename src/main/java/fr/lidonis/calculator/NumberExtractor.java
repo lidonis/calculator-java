@@ -17,7 +17,7 @@ class NumberExtractor {
                 stringBuilder.append(tokens[start++]);
             return new Extract(start, stringBuilder.toString());
         }
-        return null;
+        throw new IllegalArgumentException("The expression is invalid");
     }
 
     private static boolean isNumberPart(char token) {

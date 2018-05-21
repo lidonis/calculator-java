@@ -24,8 +24,12 @@ public class CalculatorImpl implements Calculator {
             applyOperator(tokens[i]);
         }
 
-        while (!operators.empty())
+        while (!operators.empty()) {
+            if (numbers.size() < 2) {
+                throw new IllegalArgumentException("The expression is invalid");
+            }
             numbers.push(operators.pop().apply(numbers.pop(), numbers.pop()));
+        }
 
         return numbers.pop();
     }
