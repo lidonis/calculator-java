@@ -47,6 +47,8 @@ public class CalculatorImpl implements Calculator {
                 applyOperator();
             }
             operators.push(operator);
+        } else {
+            throw new IllegalArgumentException("The expression is invalid");
         }
     }
 

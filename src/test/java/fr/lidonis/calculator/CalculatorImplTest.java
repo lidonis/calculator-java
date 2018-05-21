@@ -96,7 +96,7 @@ class CalculatorImplTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"+", "a", "1+"})
+    @ValueSource(strings = {"+", "a", "1+", "1a"})
     void given_invalid_expression_throw_exception_containing_invalid(String expression) {
         Throwable throwable = catchThrowable(() -> new CalculatorImpl().evaluate(expression));
         assertThat(throwable).hasMessageContaining("invalid");
