@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchThrowable;
@@ -90,6 +91,18 @@ class CalculatorCLITest {
             int exitCode = calculatorCLI.evaluate(new String[]{null});
             assertThat(exitCode).isGreaterThan(0);
             assertThat(errContent.toString()).contains("NullPointerException");
+        }
+    }
+}
+
+class TestCalculator implements Calculator {
+
+    @Override
+    public BigDecimal evaluate(String expression) {
+        if (expression.isEmpty()) {
+            throw new IllegalArgumentException("The expression should not be empty");
+        } else {
+            return new BigDecimal("2");
         }
     }
 }
