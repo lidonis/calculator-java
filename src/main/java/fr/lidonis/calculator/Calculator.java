@@ -1,5 +1,7 @@
 package fr.lidonis.calculator;
 
+import java.math.BigDecimal;
+
 public interface Calculator {
-    int evaluate(String expression);
+    BigDecimal evaluate(String expression);
 }

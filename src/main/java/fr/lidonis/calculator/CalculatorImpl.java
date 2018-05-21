@@ -1,11 +1,13 @@
 package fr.lidonis.calculator;
 
+import java.math.BigDecimal;
+
 public class CalculatorImpl implements Calculator {
 
     @Override
-    public int evaluate(String expression) {
+    public BigDecimal evaluate(String expression) {
         String[] integerToAdd = expression.split("\\+");
-        return Integer.parseInt(integerToAdd[0]) + Integer.parseInt(integerToAdd[1]);
+        return new BigDecimal(integerToAdd[0]).add(new BigDecimal(integerToAdd[1]));
     }
 
 }

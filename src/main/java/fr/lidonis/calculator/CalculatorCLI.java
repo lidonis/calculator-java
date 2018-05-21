@@ -1,6 +1,7 @@
 package fr.lidonis.calculator;
 
 import java.io.PrintStream;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 class CalculatorCLI {
@@ -25,7 +26,7 @@ class CalculatorCLI {
             return 1;
         } else {
             try {
-                int result = calculator.evaluate(args[0]);
+                BigDecimal result = calculator.evaluate(args[0]);
                 outContent.print(result);
                 return 0;
             } catch (Exception e) {
