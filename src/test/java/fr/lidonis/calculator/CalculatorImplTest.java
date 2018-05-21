@@ -50,4 +50,11 @@ class CalculatorImplTest {
         assertThat(result).isEqualTo("27");
     }
 
+    @Test
+    void given_10_divided_by_2_return_5() {
+        BigDecimal result = new CalculatorImpl().evaluate("10/2");
+        assertThat(result).isEqualTo("5");
+    }
+
+
 }

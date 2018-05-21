@@ -1,6 +1,7 @@
 package fr.lidonis.calculator;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.Optional;
 import java.util.function.BinaryOperator;
 import java.util.stream.Stream;
@@ -8,7 +9,8 @@ import java.util.stream.Stream;
 public enum Operator {
     ADD('+', BigDecimal::add),
     SUBTRACT('-', (bigDecimal, bigDecimal2) -> bigDecimal2.subtract(bigDecimal)),
-    MULTIPLY('*', BigDecimal::multiply);
+    MULTIPLY('*', BigDecimal::multiply),
+    DIVIDE('/', (bigDecimal, bigDecimal2) -> bigDecimal2.divide(bigDecimal, MathContext.DECIMAL128));
 
     char operator;
     private BinaryOperator<BigDecimal> operation;
