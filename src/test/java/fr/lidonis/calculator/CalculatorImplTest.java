@@ -74,4 +74,10 @@ class CalculatorImplTest {
         BigDecimal result = new CalculatorImpl().evaluate("5.2+1");
         assertThat(result).isEqualTo("6.2");
     }
+
+    @Test
+    void given_5point_2_point_8_throw_exception_containing_more_than_one_decimal_point() {
+        Throwable throwable = catchThrowable(() -> new CalculatorImpl().evaluate("5.2.8"));
+        assertThat(throwable).hasMessageContaining("more than one point");
+    }
 }
