@@ -32,4 +32,10 @@ class CalculatorImplTest {
         assertThat(result).isEqualTo("6");
     }
 
+    @Test
+    void given_5_minus_2_return_3() {
+        BigDecimal result = new CalculatorImpl().evaluate("5-2");
+        assertThat(result).isEqualTo("3");
+    }
+
 }
