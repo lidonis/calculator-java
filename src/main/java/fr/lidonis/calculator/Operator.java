@@ -7,7 +7,8 @@ import java.util.stream.Stream;
 
 public enum Operator {
     ADD('+', BigDecimal::add),
-    SUBTRACT('-', (bigDecimal, bigDecimal2) -> bigDecimal2.subtract(bigDecimal));
+    SUBTRACT('-', (bigDecimal, bigDecimal2) -> bigDecimal2.subtract(bigDecimal)),
+    MULTIPLY('*', BigDecimal::multiply);
 
     char operator;
     private BinaryOperator<BigDecimal> operation;

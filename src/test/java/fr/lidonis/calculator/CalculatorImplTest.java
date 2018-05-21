@@ -44,4 +44,10 @@ class CalculatorImplTest {
         assertThat(result).isEqualTo("4");
     }
 
+    @Test
+    void given_9_times_3_return_27() {
+        BigDecimal result = new CalculatorImpl().evaluate("9*3");
+        assertThat(result).isEqualTo("27");
+    }
+
 }
