@@ -12,9 +12,13 @@ public class CalculatorImpl implements Calculator {
     @Override
     public BigDecimal evaluate(String expression) {
         checkExpression(expression);
-        char[] tokens = expression.toCharArray();
-        NumberExtractor numberExtractor = new NumberExtractor(tokens);
+        parseTokens(expression.toCharArray());
+        applyStackedOperators();
+        return numbers.pop();
+    }
 
+    private void parseTokens(char[] tokens) {
+        NumberExtractor numberExtractor = new NumberExtractor(tokens);
         for (int i = 0; i < tokens.length; i++) {
             NumberExtractor.Extract extract = numberExtractor.extractNumber(i);
             i = extract.getPosition();
@@ -24,12 +28,7 @@ public class CalculatorImpl implements Calculator {
                 pushOperator(tokens[i]);
             }
         }
-
-        applyStackedOperators();
-
-        return numbers.pop();
     }
-
 
     private void checkExpression(String expression) {
         if (expression == null) {
@@ -44,7 +43,7 @@ public class CalculatorImpl implements Calculator {
         if (optionalOperator.isPresent()) {
             Operator operator = optionalOperator.get();
             while (!operators.empty() && operator.hasPrecedence(operators.peek())) {
-                applyOperator();
+                applyOperator(operators.pop());
             }
             operators.push(operator);
         } else {
@@ -54,14 +53,14 @@ public class CalculatorImpl implements Calculator {
 
     private void applyStackedOperators() {
         while (!operators.empty()) {
-            applyOperator();
+            applyOperator(operators.pop());
         }
     }
 
-    private void applyOperator() {
+    private void applyOperator(Operator operator) {
         if (numbers.size() < 2) {
             throw new IllegalArgumentException("The expression is invalid");
         }
-        numbers.push(operators.pop().apply(numbers.pop(), numbers.pop()));
+        numbers.push(operator.apply(numbers.pop(), numbers.pop()));
     }
 }
