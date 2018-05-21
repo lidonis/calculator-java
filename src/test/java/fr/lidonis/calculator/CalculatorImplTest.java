@@ -38,4 +38,10 @@ class CalculatorImplTest {
         assertThat(result).isEqualTo("3");
     }
 
+    @Test
+    void given_5_minus_2_plus_5_minus_4_return_4() {
+        BigDecimal result = new CalculatorImpl().evaluate("5-2+5-4");
+        assertThat(result).isEqualTo("4");
+    }
+
 }

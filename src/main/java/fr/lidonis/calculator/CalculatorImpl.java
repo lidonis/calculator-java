@@ -1,6 +1,7 @@
 package fr.lidonis.calculator;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 import java.util.Stack;
 
 public class CalculatorImpl implements Calculator {
@@ -14,8 +15,9 @@ public class CalculatorImpl implements Calculator {
 
         for (int i = 0; i < tokens.length; i++) {
             i = extractNumber(tokens, i);
+            // stop if we reach the last number
             if (i == tokens.length) break;
-            Operator.getOperator(tokens[i]).ifPresent(operator -> operators.push(operator));
+            applyOperator(tokens[i]);
         }
 
         while (!operators.empty())
@@ -36,5 +38,15 @@ public class CalculatorImpl implements Calculator {
 
     private static boolean isNumberPart(char token) {
         return token >= '0' && token <= '9';
+    }
+
+    private void applyOperator(char token) {
+        Optional<Operator> optionalOperator = Operator.getOperator(token);
+        if (optionalOperator.isPresent()) {
+            while (!operators.empty())
+                numbers.push(operators.pop().apply(numbers.pop(), numbers.pop()));
+
+            operators.push(optionalOperator.get());
+        }
     }
 }
