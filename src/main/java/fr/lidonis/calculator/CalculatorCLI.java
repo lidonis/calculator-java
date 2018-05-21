@@ -30,7 +30,11 @@ class CalculatorCLI {
                 outContent.print(result);
                 return 0;
             } catch (Exception e) {
-                errContent.print(e.getMessage());
+                if (e.getMessage() == null) {
+                    errContent.print(e);
+                } else {
+                    errContent.print(e.getMessage());
+                }
                 return 1;
             }
         }

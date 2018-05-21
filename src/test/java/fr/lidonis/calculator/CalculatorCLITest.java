@@ -84,5 +84,12 @@ class CalculatorCLITest {
             assertThat(exitCode).isEqualTo(0);
             assertThat(outContent.toString()).isEqualTo("2");
         }
+
+        @Test
+        void given_null_expression_should_print_error_message_containing_npe() {
+            int exitCode = calculatorCLI.evaluate(new String[]{null});
+            assertThat(exitCode).isGreaterThan(0);
+            assertThat(errContent.toString()).contains("NullPointerException");
+        }
     }
 }
