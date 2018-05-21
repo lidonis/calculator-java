@@ -11,6 +11,7 @@ public class CalculatorImpl implements Calculator {
 
     @Override
     public BigDecimal evaluate(String expression) {
+        checkExpression(expression);
         char[] tokens = expression.toCharArray();
         NumberExtractor numberExtractor = new NumberExtractor(tokens);
 
@@ -27,6 +28,14 @@ public class CalculatorImpl implements Calculator {
             numbers.push(operators.pop().apply(numbers.pop(), numbers.pop()));
 
         return numbers.pop();
+    }
+
+    private void checkExpression(String expression) {
+        if (expression == null) {
+            throw new IllegalArgumentException("The expression should not be null");
+        } else if (expression.isEmpty()) {
+            throw new IllegalArgumentException("The expression should not be empty");
+        }
     }
 
     private void applyOperator(char token) {

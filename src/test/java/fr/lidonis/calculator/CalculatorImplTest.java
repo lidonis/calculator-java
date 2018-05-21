@@ -80,4 +80,16 @@ class CalculatorImplTest {
         Throwable throwable = catchThrowable(() -> new CalculatorImpl().evaluate("5.2.8"));
         assertThat(throwable).hasMessageContaining("more than one point");
     }
+
+    @Test
+    void given_null_expression_throw_exception_containing_null() {
+        Throwable throwable = catchThrowable(() -> new CalculatorImpl().evaluate(null));
+        assertThat(throwable).hasMessageContaining("null");
+    }
+
+    @Test
+    void given_empty_expression_throw_exception_containing_empty() {
+        Throwable throwable = catchThrowable(() -> new CalculatorImpl().evaluate(""));
+        assertThat(throwable).hasMessageContaining("empty");
+    }
 }
