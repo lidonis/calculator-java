@@ -7,12 +7,15 @@ class CalculatorCLI {
 
     private final PrintStream outContent;
     private final PrintStream errContent;
+    private final Calculator calculator;
 
-    CalculatorCLI(PrintStream outContent, PrintStream errContent) {
+    CalculatorCLI(PrintStream outContent, PrintStream errContent, Calculator calculator) {
         Objects.requireNonNull(outContent, "Out stream is required");
         Objects.requireNonNull(errContent, "Err stream is required");
+        Objects.requireNonNull(calculator, "Calculator stream is required");
         this.outContent = outContent;
         this.errContent = errContent;
+        this.calculator = calculator;
     }
 
     int evaluate(String[] args) {
@@ -21,7 +24,8 @@ class CalculatorCLI {
             errContent.print(message);
             return 1;
         } else {
-            outContent.print("2");
+            int result = calculator.evaluate(args[0]);
+            outContent.print(result);
             return 0;
         }
     }

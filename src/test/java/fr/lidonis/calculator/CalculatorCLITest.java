@@ -15,15 +15,27 @@ class CalculatorCLITest {
 
     @Test
     void given_null_print_stream_it_should_throw_npe() {
-        Throwable throwable = catchThrowable(() -> new CalculatorCLI(null, new PrintStream(new ByteArrayOutputStream())));
+        Throwable throwable = catchThrowable(() ->
+                new CalculatorCLI(null, new PrintStream(new ByteArrayOutputStream()), new TestCalculator()));
         assertThat(throwable).isInstanceOf(NullPointerException.class).hasMessage("Out stream is required");
     }
 
     @Test
     void given_null_err_stream_it_should_throw_npe() {
-        Throwable throwable = catchThrowable(() -> new CalculatorCLI(new PrintStream(new ByteArrayOutputStream()), null));
+        Throwable throwable = catchThrowable(() ->
+                new CalculatorCLI(new PrintStream(new ByteArrayOutputStream()), null, new TestCalculator()));
         assertThat(throwable).isInstanceOf(NullPointerException.class).hasMessage("Err stream is required");
     }
+
+    @Test
+    void given_null_calculator_it_should_throw_npe() {
+        Throwable throwable = catchThrowable(() ->
+                new CalculatorCLI(new PrintStream(new ByteArrayOutputStream()),
+                        new PrintStream(new ByteArrayOutputStream()),
+                        null));
+        assertThat(throwable).isInstanceOf(NullPointerException.class).hasMessage("Calculator stream is required");
+    }
+
 
     @Nested
     @DisplayName("Tests with initialized CalculatorCLI")
@@ -35,7 +47,7 @@ class CalculatorCLITest {
 
         @BeforeEach
         void setUp() {
-            calculatorCLI = new CalculatorCLI(new PrintStream(outContent), new PrintStream(errContent));
+            calculatorCLI = new CalculatorCLI(new PrintStream(outContent), new PrintStream(errContent), new TestCalculator());
         }
 
         @Test()
