@@ -26,4 +26,10 @@ class CalculatorImplTest {
         assertThat(result).isEqualTo("111111111111111112");
     }
 
+    @Test
+    void given_1_plus_2_plus_3_return_6() {
+        BigDecimal result = new CalculatorImpl().evaluate("1+2+3");
+        assertThat(result).isEqualTo("6");
+    }
+
 }

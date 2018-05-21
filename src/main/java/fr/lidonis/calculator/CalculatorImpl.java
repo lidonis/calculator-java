@@ -1,13 +1,23 @@
 package fr.lidonis.calculator;
 
 import java.math.BigDecimal;
+import java.util.Stack;
 
 public class CalculatorImpl implements Calculator {
 
+    private Stack<BigDecimal> numbers = new Stack<>();
+
     @Override
     public BigDecimal evaluate(String expression) {
-        String[] integerToAdd = expression.split("\\+");
-        return new BigDecimal(integerToAdd[0]).add(new BigDecimal(integerToAdd[1]));
-    }
+        String[] numbersToAdd = expression.split("\\+");
 
+        for (String number : numbersToAdd) {
+            numbers.add(new BigDecimal(number));
+        }
+
+        while (numbers.size() > 1)
+            numbers.push(numbers.pop().add(numbers.pop()));
+
+        return numbers.pop();
+    }
 }
