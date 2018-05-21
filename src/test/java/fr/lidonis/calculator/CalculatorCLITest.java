@@ -72,6 +72,13 @@ class CalculatorCLITest {
         }
 
         @Test
+        void given_empty_expression_should_print_error_message_containing_empty() {
+            int exitCode = calculatorCLI.evaluate(new String[]{""});
+            assertThat(exitCode).isGreaterThan(0);
+            assertThat(errContent.toString()).contains("empty");
+        }
+
+        @Test
         void given_1_plus_1_it_should_print_2() {
             int exitCode = calculatorCLI.evaluate(new String[]{"1+1"});
             assertThat(exitCode).isEqualTo(0);

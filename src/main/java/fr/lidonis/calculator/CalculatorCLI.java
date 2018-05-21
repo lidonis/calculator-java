@@ -24,9 +24,14 @@ class CalculatorCLI {
             errContent.print(message);
             return 1;
         } else {
-            int result = calculator.evaluate(args[0]);
-            outContent.print(result);
-            return 0;
+            try {
+                int result = calculator.evaluate(args[0]);
+                outContent.print(result);
+                return 0;
+            } catch (Exception e) {
+                errContent.print(e.getMessage());
+                return 1;
+            }
         }
     }
 

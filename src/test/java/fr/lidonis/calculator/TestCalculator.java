@@ -4,6 +4,10 @@ public class TestCalculator implements Calculator {
 
     @Override
     public int evaluate(String expression) {
-        return 2;
+        if (expression.isEmpty()) {
+            throw new IllegalArgumentException("The expression should not be empty");
+        } else {
+            return 2;
+        }
     }
 }
