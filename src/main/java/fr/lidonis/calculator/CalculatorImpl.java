@@ -66,6 +66,8 @@ public class CalculatorImpl implements Calculator {
         if (numbers.size() < 2) {
             throw new IllegalArgumentException("The expression is invalid");
         }
-        numbers.push(operator.apply(numbers.pop(), numbers.pop()));
+        // put the numbers in the right because they are inverted in the stack
+        BigDecimal number2 = numbers.pop();
+        numbers.push(operator.apply(numbers.pop(), number2));
     }
 }

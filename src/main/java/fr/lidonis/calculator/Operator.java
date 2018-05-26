@@ -8,13 +8,13 @@ import java.util.stream.Stream;
 
 public enum Operator {
     ADD('+', BigDecimal::add),
-    SUBTRACT('-', (bigDecimal, bigDecimal2) -> bigDecimal2.subtract(bigDecimal)),
+    SUBTRACT('-', BigDecimal::subtract),
     MULTIPLY('*', BigDecimal::multiply),
     DIVIDE('/', (bigDecimal, bigDecimal2) -> {
-        if (BigDecimal.ZERO.equals(bigDecimal))
+        if (BigDecimal.ZERO.equals(bigDecimal2))
             throw new
                     UnsupportedOperationException("Cannot divide by zero");
-        return bigDecimal2.divide(bigDecimal, MathContext.DECIMAL128);
+        return bigDecimal.divide(bigDecimal2, MathContext.DECIMAL128);
     });
 
     char operator;
