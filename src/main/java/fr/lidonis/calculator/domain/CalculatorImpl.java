@@ -1,4 +1,4 @@
-package fr.lidonis.calculator;
+package fr.lidonis.calculator.domain;
 
 import java.math.BigDecimal;
 import java.util.Optional;

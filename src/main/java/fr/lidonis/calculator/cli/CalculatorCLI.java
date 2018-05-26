@@ -1,16 +1,18 @@
-package fr.lidonis.calculator;
+package fr.lidonis.calculator.cli;
+
+import fr.lidonis.calculator.domain.Calculator;
 
 import java.io.PrintStream;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-class CalculatorCLI {
+public class CalculatorCLI {
 
     private final PrintStream outContent;
     private final PrintStream errContent;
     private final Calculator calculator;
 
-    CalculatorCLI(PrintStream outContent, PrintStream errContent, Calculator calculator) {
+    public CalculatorCLI(PrintStream outContent, PrintStream errContent, Calculator calculator) {
         Objects.requireNonNull(outContent, "Out stream is required");
         Objects.requireNonNull(errContent, "Err stream is required");
         Objects.requireNonNull(calculator, "Calculator stream is required");
@@ -19,7 +21,7 @@ class CalculatorCLI {
         this.calculator = calculator;
     }
 
-    int evaluate(String[] args) {
+    public int evaluate(String[] args) {
         String message = checkArgs(args);
         if (message != null) {
             errContent.print(message);

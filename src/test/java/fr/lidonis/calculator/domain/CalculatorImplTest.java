@@ -1,4 +1,4 @@
-package fr.lidonis.calculator;
+package fr.lidonis.calculator.domain;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

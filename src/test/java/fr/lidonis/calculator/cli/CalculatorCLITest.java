@@ -1,5 +1,6 @@
-package fr.lidonis.calculator;
+package fr.lidonis.calculator.cli;
 
+import fr.lidonis.calculator.domain.Calculator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
