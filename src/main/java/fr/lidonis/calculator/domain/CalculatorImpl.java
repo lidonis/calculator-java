@@ -1,13 +1,14 @@
 package fr.lidonis.calculator.domain;
 
 import java.math.BigDecimal;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Optional;
-import java.util.Stack;
 
 public class CalculatorImpl implements Calculator {
 
-    private Stack<BigDecimal> numbers = new Stack<>();
-    private Stack<Operator> operators = new Stack<>();
+    private Deque<BigDecimal> numbers = new ArrayDeque<>();
+    private Deque<Operator> operators = new ArrayDeque<>();
 
     @Override
     public BigDecimal evaluate(String expression) {
@@ -47,7 +48,7 @@ public class CalculatorImpl implements Calculator {
         Optional<Operator> optionalOperator = Operator.getOperator(token);
         if (optionalOperator.isPresent()) {
             Operator operator = optionalOperator.get();
-            while (!operators.empty() && operator.hasPrecedence(operators.peek())) {
+            while (!operators.isEmpty() && operator.hasPrecedence(operators.peek())) {
                 applyOperator(operators.pop());
             }
             operators.push(operator);
@@ -57,7 +58,7 @@ public class CalculatorImpl implements Calculator {
     }
 
     private void applyStackedOperators() {
-        while (!operators.empty()) {
+        while (!operators.isEmpty()) {
             applyOperator(operators.pop());
         }
     }
