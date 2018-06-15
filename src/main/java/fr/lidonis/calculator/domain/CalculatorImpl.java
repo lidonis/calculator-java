@@ -46,15 +46,16 @@ public class CalculatorImpl implements Calculator {
 
     private void pushOperator(char token) {
         Optional<Operator> optionalOperator = Operator.getOperator(token);
-        if (optionalOperator.isPresent()) {
-            Operator operator = optionalOperator.get();
-            while (!operators.isEmpty() && operator.hasPrecedence(operators.peek())) {
-                applyOperator(operators.pop());
-            }
-            operators.push(operator);
-        } else {
-            throw new IllegalArgumentException("The expression is invalid");
+        Operator operator = optionalOperator.map(this::applyPreviousOperatorsPriority)
+                .orElseThrow(() -> new IllegalArgumentException("The expression is invalid"));
+        operators.push(operator);
+    }
+
+    private Operator applyPreviousOperatorsPriority(Operator operator) {
+        while (!operators.isEmpty() && operator.hasPrecedence(operators.peek())) {
+            applyOperator(operators.pop());
         }
+        return operator;
     }
 
     private void applyStackedOperators() {
@@ -71,4 +72,5 @@ public class CalculatorImpl implements Calculator {
         BigDecimal number2 = numbers.pop();
         numbers.push(operator.apply(numbers.pop(), number2));
     }
+
 }
