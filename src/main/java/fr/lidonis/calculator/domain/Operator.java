@@ -17,8 +17,8 @@ public enum Operator {
         return bigDecimal.divide(bigDecimal2, MathContext.DECIMAL128);
     });
 
-    char operator;
-    private BinaryOperator<BigDecimal> operation;
+    private final char operator;
+    private final BinaryOperator<BigDecimal> operation;
 
     Operator(char operator, BinaryOperator<BigDecimal> operation) {
         this.operator = operator;

@@ -43,8 +43,8 @@ class CalculatorCLITest {
     @DisplayName("Tests with initialized CalculatorCLI")
     class Initialized {
 
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+        final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
         CalculatorCLI calculatorCLI;
 
         @BeforeEach

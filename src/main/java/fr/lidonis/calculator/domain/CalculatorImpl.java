@@ -7,8 +7,8 @@ import java.util.Optional;
 
 public class CalculatorImpl implements Calculator {
 
-    private Deque<BigDecimal> numbers = new ArrayDeque<>();
-    private Deque<Operator> operators = new ArrayDeque<>();
+    private final Deque<BigDecimal> numbers = new ArrayDeque<>();
+    private final Deque<Operator> operators = new ArrayDeque<>();
 
     @Override
     public BigDecimal evaluate(String expression) {

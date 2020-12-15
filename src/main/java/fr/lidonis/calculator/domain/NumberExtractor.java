@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 class NumberExtractor {
 
-    private char[] tokens;
+    private final char[] tokens;
 
     NumberExtractor(char[] tokens) {
         this.tokens = tokens;
@@ -24,9 +24,9 @@ class NumberExtractor {
         return token >= '0' && token <= '9' || token == '.';
     }
 
-    class Extract {
-        private int position;
-        private BigDecimal number;
+    static class Extract {
+        private final int position;
+        private final BigDecimal number;
 
         Extract(int position, String val) {
             this.position = position;
